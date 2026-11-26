@@ -310,7 +310,90 @@ a:focus-visible,button:focus-visible{outline:2px solid #FF5C35;outline-offset:4p
 .reveal.d1{ transition-delay:.08s } .reveal.d2{ transition-delay:.16s } .reveal.d3{ transition-delay:.24s }
 @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
 </style></style>
-<style>.ph,.ph-light{position:relative;overflow:hidden}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.ph.ph-light img{position:relative;display:block}</style></head>
+<style>.ph,.ph-light{position:relative;overflow:hidden}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.ph.ph-light img{position:relative;display:block}</style>
+<style>
+/* ===== NUVRA beginner value sections ===== */
+/* getting started */
+.steps-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:768px){.steps-grid{grid-template-columns:repeat(3,1fr)}}
+.step-card{position:relative;border:1px solid var(--ink12);border-radius:20px;padding:34px 30px;background:#fff;transition:transform .5s var(--ease-expo),border-color .3s,box-shadow .5s var(--ease-expo)}
+.step-card:hover{transform:translateY(-6px);border-color:var(--ink35);box-shadow:0 24px 60px -30px rgba(10,10,10,.2)}
+.step-num{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:var(--accent-soft);color:var(--accent);font:900 20px var(--font)}
+.step-card h3{font-size:20px;font-weight:900;letter-spacing:-.02em;margin:22px 0 8px}
+.step-card p{margin:0;font-size:15px;line-height:1.65;color:var(--ink55)}
+.step-tag{display:inline-flex;margin-top:18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);border:1px solid var(--ink12);border-radius:999px;padding:7px 13px}
+/* learn */
+.learn-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:768px){.learn-grid{grid-template-columns:repeat(3,1fr)}}
+.learn-card{position:relative;border:1px solid var(--ink12);border-radius:20px;padding:34px 30px;background:#fff;overflow:hidden;display:flex;flex-direction:column;transition:transform .5s var(--ease-expo),border-color .3s}
+.learn-card:hover{transform:translateY(-6px);border-color:var(--ink35)}
+.learn-card .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);margin-bottom:20px}
+.learn-card h3{font-size:20px;font-weight:900;letter-spacing:-.02em;margin:0 0 10px}
+.learn-card p{margin:0 0 22px;font-size:15px;line-height:1.65;color:var(--ink55);flex:1}
+.learn-card .more{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink)}
+.learn-card .more svg{transition:transform .3s var(--ease-expo)}
+.learn-card:hover .more svg{transform:translate(4px,0)}
+/* fees */
+.fee-wrap{display:grid;grid-template-columns:1fr;gap:24px;align-items:start}
+@media(min-width:900px){.fee-wrap{grid-template-columns:1.15fr 1fr;align-items:center}}
+.fee-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--ink12);border-radius:20px;overflow:hidden}
+.fee-table thead th{text-align:left;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ink55);background:var(--ink06);padding:18px 22px}
+.fee-table tbody td{padding:18px 22px;border-top:1px solid var(--ink12);font-size:14.5px;line-height:1.5;color:var(--ink)}
+.fee-table tbody td:first-child{font-weight:700}
+.fee-table tbody td.rate{font-weight:900;color:var(--accent);white-space:nowrap}
+.fee-table tbody tr:hover td{background:var(--ink06)}
+.fee-note{position:relative;border:1px solid var(--ink12);border-radius:20px;padding:34px 30px;background:linear-gradient(160deg,#fff,var(--ink06));overflow:hidden}
+.fee-note-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--accent);color:#fff;box-shadow:0 14px 30px -12px rgba(255,92,53,.7);margin-bottom:20px}
+.fee-note h3{font-size:21px;font-weight:900;letter-spacing:-.02em;margin:0 0 10px}
+.fee-note p{margin:0 0 0;font-size:15px;line-height:1.7;color:var(--ink55)}
+.fee-small{margin:16px 0 0;font-size:12.5px;line-height:1.6;color:var(--ink35);border-left:2px solid var(--ink12);padding-left:12px}
+/* use cases */
+.use-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:768px){.use-grid{grid-template-columns:repeat(2,1fr)}}
+.use-card{position:relative;border:1px solid var(--ink12);border-radius:20px;padding:30px;background:#fff;display:flex;gap:20px;align-items:flex-start;transition:transform .5s var(--ease-expo),border-color .3s}
+.use-card:hover{transform:translateY(-4px);border-color:var(--ink35)}
+.use-card .ic{flex-shrink:0;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.use-card h3{font-size:18px;font-weight:900;letter-spacing:-.02em;margin:0 0 6px}
+.use-card p{margin:0;font-size:14.5px;line-height:1.65;color:var(--ink55)}
+/* guided tour */
+.tour-band{position:relative;border-radius:28px;overflow:hidden;background:#0A0A0A;color:#fff;padding:72px 0;display:grid;grid-template-columns:1fr;gap:48px;align-items:center}
+@media(min-width:900px){.tour-band{grid-template-columns:5fr 6fr;padding:72px 24px;gap:24px}}
+.tour-copy{padding:0 32px}
+@media(min-width:900px){.tour-copy{padding:0 32px 0 48px}}
+.tour-band .eyebrow::before{background:#FF9E85}
+.tour-band h2{font:900 clamp(30px,4.6vw,52px)/1.02 var(--font);letter-spacing:-.05em;margin:14px 0 18px}
+.tour-band h2 em{font-style:normal;color:#FF5C35}
+.tour-band p{color:rgba(255,255,255,.6);font-size:17px;line-height:1.6;max-width:44ch;margin:0 0 30px}
+.tour-actions{display:flex;gap:12px;flex-wrap:wrap}
+.tour-fine{margin:20px 0 0;font-size:12px;color:rgba(255,255,255,.4)}
+.tour-visual{display:grid;place-items:center;padding:0 32px}
+@media(min-width:900px){.tour-visual{padding:0 40px 0 0;justify-items:end}}
+.app-phone{width:min(300px,100%);border-radius:26px;background:#fff;color:#0A0A0A;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.18)}
+.app-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--ink06)}
+.app-dot{width:10px;height:10px;border-radius:50%;background:#FF5C35}
+.app-buy{font-weight:700;font-size:14px}
+.app-bal{font:900 15px var(--font);color:var(--ink55)}
+.app-body{padding:24px 20px;display:flex;flex-direction:column;gap:13px}
+.app-row{display:flex;justify-content:space-between;align-items:center;font-size:14.5px;color:var(--ink55)}
+.app-row b{font-weight:700;color:var(--ink)}
+.app-row.rate b{color:var(--accent)}
+.app-confirm{margin-top:10px;background:#FF5C35;color:#0A0A0A;text-align:center;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em;padding:14px;border-radius:999px}
+.app-note{margin:12px 0 0;font-size:11px;color:var(--ink35);text-align:center}
+/* community & press */
+.community-band{position:relative;border:1px solid var(--ink12);border-radius:28px;padding:72px 32px;background:linear-gradient(180deg,#fff,var(--ink06));overflow:hidden}
+@media(min-width:768px){.community-band{padding:72px 56px}}
+.comm-head{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+@media(min-width:900px){.comm-head{flex-direction:row;align-items:flex-end}}
+.comm-head h2{font:900 clamp(28px,4vw,44px)/1.05 var(--font);letter-spacing:-.04em;margin:14px 0 0}
+.comm-head p{max-width:40ch;color:var(--ink55);font-size:15.5px;line-height:1.7;margin:0}
+.press-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--ink35);margin:48px 0 18px}
+.press-row{display:flex;flex-wrap:wrap;gap:14px}
+.press-logo{font-weight:900;font-size:16px;letter-spacing:-.02em;color:var(--ink55);padding:15px 20px;border:1px solid var(--ink12);border-radius:14px;background:#fff;transition:color .3s,border-color .3s,transform .3s var(--ease-expo)}
+.press-logo:hover{color:var(--accent);border-color:var(--ink35);transform:translateY(-2px)}
+.comm-cta{margin-top:44px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn-link{background:none;border:0;color:var(--accent);padding:18px 8px;font-weight:700}
+.btn-link:hover{transform:translateY(-2px)}
+</style></head>
 <body style="background:#FFFFFF;color:#0A0A0A">
 <div class="hero">
   <h1 class="sr-only">NUVRA Crypto</h1>
@@ -366,7 +449,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FF5C35;outline-offset:4p
         <span class="logo-word">NUVRA.fi</span>
       </a>
       <div class="nav-links">
-        <a href="#">Markets</a><a href="#">Trade</a><a href="#">Earn</a><a href="#">Learn</a>
+        <a href="#start">Start</a><a href="#learn">Learn</a><a href="#fees">Fees</a><a href="#for-you">For you</a><a href="#tour">Tour</a>
       </div>
     </div>
     <div class="nav-right">
@@ -374,7 +457,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FF5C35;outline-offset:4p
       <button type="button" class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
       </button>
-      <a href="#" class="btn-start">Get Started</a>
+      <a href="#start" class="btn-start">Get Started</a>
     </div>
   </nav>
 
@@ -386,7 +469,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FF5C35;outline-offset:4p
       </button>
     </div>
     <div class="menu-links">
-      <a href="#" style="--i:0">MARKETS</a><a href="#" style="--i:1">TRADE</a><a href="#" style="--i:2">EARN</a><a href="#" style="--i:3">LEARN</a><a href="#" style="--i:4">GET STARTED</a>
+      <a href="#start" style="--i:0">START</a><a href="#learn" style="--i:1">LEARN</a><a href="#fees" style="--i:2">FEES</a><a href="#for-you" style="--i:3">FOR YOU</a><a href="#tour" style="--i:4">TOUR</a>
     </div>
     <div class="menu-foot">
       <div class="currency-plain"><span>USD</span><span class="sep" aria-hidden="true">|</span><span>BTC</span></div>
@@ -496,6 +579,190 @@ a:focus-visible,button:focus-visible{outline:2px solid #FF5C35;outline-offset:4p
           <h3 style="font:900 clamp(24px,3.4vw,34px)/1.05 var(--font);letter-spacing:-.03em;margin:14px 0 14px;">One clean surface for your whole portfolio</h3>
           <p style="margin:0;font-size:15.5px;line-height:1.7;color:var(--ink55)">Watch, buy, trade and earn from a single screen. Live prices, clear performance, and one-tap actions — designed to be understood in seconds.</p>
           <div class="trust-tags"><span>Live prices</span><span>Portfolio view</span><span>One-tap actions</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2b. getting started -->
+  <section class="section" id="start">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Getting started</span>
+        <h2 class="display">Start in <em>minutes</em>.</h2>
+        <p class="sub">No jargon, no learning curve. If you can use a banking app, you already know how to use NUVRA.</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card reveal">
+          <div class="step-num">1</div>
+          <h3>Create your account</h3>
+          <p>Sign up with just your email in about 60 seconds. There's no minimum deposit and nothing to pay until you're ready.</p>
+          <span class="step-tag">~60 seconds</span>
+        </article>
+        <article class="step-card reveal d1">
+          <div class="step-num">2</div>
+          <h3>Verify your identity</h3>
+          <p>A quick, secure check — like opening a normal bank account. We keep it fully digital, so you're usually approved the same day.</p>
+          <span class="step-tag">Usually same day</span>
+        </article>
+        <article class="step-card reveal d2">
+          <div class="step-num">3</div>
+          <h3>Buy your first asset</h3>
+          <p>Add funds, see your exact rate up front, confirm, and you're in. Start with as little as you like and earn while you hold.</p>
+          <span class="step-tag">Buy &amp; earn</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2c. learn -->
+  <section class="section" id="learn" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Learn</span>
+        <h2 class="display">Crypto, in <em>plain language</em>.</h2>
+        <p class="sub">Short, honest explainers that treat you like an adult — because nobody should need a finance degree to feel confident.</p>
+      </div>
+      <div class="learn-grid">
+        <article class="learn-card reveal">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 10.5V16M12 8h.01"/></svg></span>
+          <h3>What is crypto, really?</h3>
+          <p>A three-minute read. What a cryptocurrency is, why it matters, and the one rule worth remembering before you buy anything.</p>
+          <a href="#" class="more">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
+        </article>
+        <article class="learn-card reveal d1">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15.5 7.5 3 3L22 7l-3-3"/><path d="M15.5 7.5 7 16a4 4 0 0 0 3 3l8-8.5"/><path d="M7 9l-4 4 3 3"/></svg></span>
+          <h3>Seed phrases, explained</h3>
+          <p>Everyone talks about them; almost nobody explains them. What a recovery phrase is, why you must back it up, and how NUVRA helps you stay safe.</p>
+          <a href="#" class="more">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
+        </article>
+        <article class="learn-card reveal d2">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M3 12l9 4.5 9-4.5"/><path d="M3 16.5l9 4.5 9-4.5"/></svg></span>
+          <h3>Should I stake my coins?</h3>
+          <p>Staking sounds complex. Here's the plain version — how it works, when it can make sense, and when it's perfectly fine to just hold.</p>
+          <a href="#" class="more">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2d. transparent fees -->
+  <section class="section" id="fees" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Fees &amp; transparency</span>
+        <h2 class="display">No hidden fees. <em>Ever.</em></h2>
+        <p class="sub">One honest rate, published up front. You see your exact cost before you confirm — not in a surprise invoice weeks later.</p>
+      </div>
+      <div class="fee-wrap">
+        <div class="reveal">
+          <table class="fee-table">
+            <thead><tr><th>Action</th><th>Our fee</th><th>You always see</th></tr></thead>
+            <tbody>
+              <tr><td>Buy crypto</td><td class="rate">0.35%</td><td>Exact rate before confirm</td></tr>
+              <tr><td>Sell / cash out</td><td class="rate">0.35%</td><td>Exact rate before confirm</td></tr>
+              <tr><td>Transfer in &amp; out</td><td class="rate">Free*</td><td>Network fees shown at cost</td></tr>
+              <tr><td>Stake &amp; earn</td><td class="rate">0%</td><td>Full reward, no markup</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="reveal d1">
+          <div class="fee-note">
+            <span class="fee-note-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <h3>What you see is what you pay.</h3>
+            <p>Before you ever confirm an order, NUVRA shows you the asset rate, the precise fee, and the final amount — in plain numbers. No hidden spreads, no surprise mark-ups, no fine-print fees.</p>
+          </div>
+          <p class="fee-small">*Fees charged by the underlying blockchain pass through at cost — never marked up by us.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2e. who it's for / use cases -->
+  <section class="section" id="for-you" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Who it's for</span>
+        <h2 class="display">Built for <em>real life</em>.</h2>
+        <p class="sub">Crypto isn't speculative wallpaper — it's a practical tool. Here's how real people put NUVRA to work every day.</p>
+      </div>
+      <div class="use-grid">
+        <article class="use-card reveal">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span>
+          <div><h3>Your first flip</h3><p>You saw bitcoin on the news. With $50 you buy your first fraction, see every cost up front, and finally get hands-on — without the fear of getting burned.</p></div>
+        </article>
+        <article class="use-card reveal d1">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></span>
+          <div><h3>Monthly savings</h3><p>Set a small recurring buy each payday. Little, regular amounts add up fast — and NUVRA makes the whole habit automatic.</p></div>
+        </article>
+        <article class="use-card reveal">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg></span>
+          <div><h3>Sending money home</h3><p>Skip slow, expensive international transfers. Send value to family abroad in minutes, with fees you understand before you hit send.</p></div>
+        </article>
+        <article class="use-card reveal d1">
+          <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></span>
+          <div><h3>Earn on idle crypto</h3><p>Unused crypto isn't lazy money. Toggle staking on and your idle balances quietly earn rewards — while you do nothing at all.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2f. guided tour -->
+  <section class="section" id="tour" style="padding-top:0">
+    <div class="wrap">
+      <div class="tour-band reveal">
+        <div class="tour-copy">
+          <span class="eyebrow">New here?</span>
+          <h2>Take a <em>2-minute tour</em>.</h2>
+          <p>See the whole app before you create an account — the buy flow, the rate confirmation, your portfolio, everything. No commitment, just clarity.</p>
+          <div class="tour-actions">
+            <a href="#" class="btn btn-solid">Start the tour</a>
+            <a href="#" class="btn btn-ghost">Create free account</a>
+          </div>
+          <p class="tour-fine">No sign-up needed · Runs in your browser</p>
+        </div>
+        <div class="tour-visual" aria-hidden="true">
+          <div class="app-phone">
+            <div class="app-top">
+              <span class="app-dot"></span>
+              <span class="app-buy">Buy Bitcoin</span>
+              <span class="app-bal">$2,340.12</span>
+            </div>
+            <div class="app-body">
+              <div class="app-row"><span>You pay</span><b>$100.00</b></div>
+              <div class="app-row"><span>You get</span><b>0.00186 BTC</b></div>
+              <div class="app-row rate"><span>Fee</span><b>0.35% · $0.35</b></div>
+              <div class="app-confirm">Confirm at shown rate</div>
+              <p class="app-note">Real rate confirmed before you buy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2g. community & press -->
+  <section class="section" id="community" style="padding-top:0">
+    <div class="wrap">
+      <div class="community-band reveal">
+        <div class="comm-head">
+          <div>
+            <span class="eyebrow">Community &amp; press</span>
+            <h2>Clear crypto, <em>together</em>.</h2>
+          </div>
+          <p>We're a community of everyday people getting comfortable with digital assets — and the outlets that keep an eye on what we build.</p>
+        </div>
+        <div class="press-label">As featured in</div>
+        <div class="press-row">
+          <span class="press-logo">The Daily Ledger</span>
+          <span class="press-logo">FinTech Weekly</span>
+          <span class="press-logo">Crypto for All</span>
+          <span class="press-logo">Money in Motion</span>
+          <span class="press-logo">The Clear Crypto</span>
+        </div>
+        <div class="comm-cta">
+          <a href="#" class="btn btn-solid">Join the community</a>
+          <a href="#" class="btn btn-link">Follow on X</a>
         </div>
       </div>
     </div>
