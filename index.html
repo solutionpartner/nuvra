@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NUVRA.fi — Crypto, made clear</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cg fill='%23FF5C35'%3E%3Crect width='10' height='10'/%3E%3Crect x='12' width='10' height='10'/%3E%3Crect y='12' width='10' height='10'/%3E%3Crect x='12' y='12' width='10' height='10'/%3E%3C/g%3E%3C/svg%3E">
+<script>(function(){try{
+  if(!window.matchMedia || !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.documentElement.classList.add('anim','anim-media');
+  }
+}catch(e){}})();</script>
+<style>
+:root{
+  --font:'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --glass-blur:20px;
+  --playback:0.7;
+  --pad-x:24px;
+  --panel-w:100vw;
+  --nuvra-top:max(90px, 11vh);
+  --orbit-size:40vh; --orbit-1:-10vh; --orbit-2:30vh; --orbit-color:rgba(10,10,10,.2);
+  --ease-expo:cubic-bezier(.16,1,.3,1);
+  --ease-quint:cubic-bezier(.22,1,.36,1);
+  --ease-spring:cubic-bezier(.22,1.2,.36,1);
+}
+@supports (height:100dvh){ :root{ --nuvra-top:max(90px, 11dvh); } }
+html,body{background:#FFFFFF !important;color:#0A0A0A;margin:0;padding:0;overflow:hidden;-webkit-font-smoothing:antialiased;font-family:var(--font)}
+::selection{background:rgba(255,92,53,.3)}
+a{color:inherit;text-decoration:none}
+*::-webkit-scrollbar{display:none}
+
+.hero{position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;background:#FFFFFF;color:#0A0A0A;font-family:var(--font)}
+.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;background:#FFFFFF}
+.anim-media .bg-video{opacity:0;filter:blur(24px)}
+.anim-media .bg-video.focus{animation:focus 1200ms var(--ease-expo) both;will-change:opacity,filter}
+@keyframes focus{from{opacity:0;filter:blur(24px)}to{opacity:1;filter:blur(0)}}
+
+.stage{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;pointer-events:none;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-ms-overflow-style:none}
+.panel{position:relative;width:var(--panel-w);flex-shrink:0;box-sizing:border-box;pointer-events:auto;overflow:hidden;display:flex;flex-direction:column}
+.panel--left{min-height:100vh;min-height:100dvh;height:auto;border-bottom:1px solid rgba(10,10,10,.05)}
+.panel--right{min-height:50vh;height:auto;justify-content:flex-end;padding-bottom:32px}
+
+.glass{position:absolute;inset:0;z-index:0;pointer-events:none;background-color:rgba(131,131,131,.3);-webkit-backdrop-filter:blur(var(--glass-blur));backdrop-filter:blur(var(--glass-blur));box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%}
+
+.panel-inner{position:relative;z-index:20;display:flex;flex-direction:column;flex-grow:1;padding-top:var(--nuvra-top);padding-left:var(--pad-x);padding-right:var(--pad-x)}
+.spacer{flex-shrink:0;height:calc((var(--panel-w) - 2 * var(--pad-x)) * .236)}
+.rule-wrap{flex-grow:1;display:flex;flex-direction:column;padding-top:16px;min-height:100px}
+.rule{flex:1 1 auto;width:1px;background:rgba(10,10,10,.2);transform-origin:top}
+.copy{display:flex;flex-direction:column;gap:24px;padding-top:16px;padding-bottom:48px}
+.eyebrow{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0;color:var(--muted)}
+.lede{margin:0;font-size:20px;font-weight:400;line-height:1.3;color:rgba(10,10,10,.9);text-wrap:pretty}
+.meta-row{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:32px;row-gap:24px;width:100%;border-top:1px solid rgba(10,10,10,.1);padding-top:32px}
+.cta-block{display:flex;flex-direction:column;gap:8px}
+.label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0;color:var(--muted)}
+.cta{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0;color:#FF5C35;transition:color .2s}
+.cta:hover{color:#0A0A0A}
+.socials{display:flex;align-items:center;gap:24px}
+.socials a{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0;color:rgba(10,10,10,.7);transition:color .2s}
+.socials a:hover{color:#FF5C35}
+.availability{display:none;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0;line-height:1.5;text-align:right;color:var(--muted)}
+
+.orbits{position:absolute;inset:0;z-index:0;pointer-events:none;display:flex;justify-content:center}
+.orbits-box{position:relative;height:100%;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center}
+.orbit{position:absolute;width:var(--orbit-size);height:var(--orbit-size);border:1px solid var(--orbit-color);border-radius:50%}
+.orbit--1{top:var(--orbit-1)}
+.orbit--2{top:var(--orbit-2)}
+.wordmark{position:relative;z-index:10;width:100%;margin-bottom:4px;padding:0 24px;box-sizing:border-box}
+.wordmark svg{display:block;overflow:visible}
+.wordmark text{fill:#FF5C35;font-family:'Inter',sans-serif;font-weight:900;font-size:270px;letter-spacing:-0.05em}
+
+.nav{position:fixed;top:0;left:0;width:100%;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:24px var(--pad-x);box-sizing:border-box;pointer-events:none}
+.nav-left{display:flex;align-items:center;gap:32px;pointer-events:auto}
+.nav-right{display:flex;align-items:center;gap:12px;flex-shrink:0;white-space:nowrap;pointer-events:auto}
+.logo{display:flex;align-items:center;gap:8px;color:#0A0A0A}
+.logo-mark{display:grid;grid-template-columns:repeat(2,8px);gap:2px}
+.logo-mark i{display:block;width:8px;height:8px;background:#FF5C35}
+.logo-word{font-size:18px;font-weight:900;letter-spacing:-0.05em}
+.nav-links{display:none;align-items:center;gap:28px}
+.nav-links a{font-size:14px;font-weight:500;text-transform:uppercase;letter-spacing:0;color:rgba(10,10,10,.7);transition:color .2s}
+.nav-links a:hover{color:#FF5C35}
+.currency{display:none;align-items:center;gap:12px;border:1px solid rgba(10,10,10,.15);border-radius:999px;padding:8px 18px;font-size:14px;font-weight:500;text-transform:uppercase;letter-spacing:0;color:#0A0A0A;background:rgba(255,255,255,.4);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.sep{color:rgba(10,10,10,.2)}
+.burger,.menu-close{display:flex;padding:10px;background:none;border:0;color:#0A0A0A;cursor:pointer}
+.btn-start{display:none;align-items:center;border:1px solid transparent;border-radius:999px;padding:12px 24px;font-size:14px;font-weight:500;text-transform:uppercase;letter-spacing:0;color:#0A0A0A;background:#FF5C35;transition:background-color .2s,color .2s}
+.btn-start:hover{background:#0A0A0A;color:#FF5C35}
+a:focus-visible,button:focus-visible{outline:2px solid #FF5C35;outline-offset:4px}
+
+.menu{position:fixed;inset:0;z-index:100;background:#FFFFFF;color:#0A0A0A;display:flex;flex-direction:column;transform:translateX(100%);opacity:0;visibility:hidden;pointer-events:none;transition:transform .6s var(--ease-spring),opacity .4s ease,visibility 0s linear .6s}
+.menu[data-open="true"]{transform:translateX(0);opacity:1;visibility:visible;pointer-events:auto;transition:transform .6s var(--ease-spring),opacity .4s ease,visibility 0s}
+.menu-head{display:flex;align-items:center;justify-content:space-between;padding:24px}
+.menu-links{flex-grow:1;display:flex;flex-direction:column;justify-content:center;padding:0 48px;gap:32px}
+.menu-links a{font-size:36px;font-weight:700;letter-spacing:-0.05em;color:#0A0A0A;opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease,color .2s}
+.menu[data-open="true"] .menu-links a{opacity:1;transform:translateY(0);transition-delay:calc(.1s + var(--i) * .05s),calc(.1s + var(--i) * .05s),0s}
+.menu-links a:hover{color:#FF5C35}
+.menu-foot{padding:48px;border-top:1px solid rgba(10,10,10,.1);display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0;color:var(--muted)}
+.currency-plain{display:flex;gap:12px}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media (min-width:640px){
+  .meta-row{flex-direction:row;align-items:flex-end}
+  .availability{display:block}
+  .currency{display:flex}
+  .btn-start{display:flex}
+}
+@media (min-width:768px){
+  :root{--pad-x:48px}
+  .lede{font-size:24px}
+  .logo-word{font-size:20px}
+  .logo-mark{grid-template-columns:repeat(2,10px)}
+  .logo-mark i{width:10px;height:10px}
+  .wordmark{padding:0 5%}
+}
+@media (min-width:1024px){
+  :root{--panel-w:50vw;--nuvra-top:max(96px, 11vh);--orbit-size:60vh;--orbit-1:-25vh;--orbit-2:18vh;--orbit-color:rgba(10,10,10,.3)}
+  @supports (height:100dvh){ :root{--nuvra-top:max(96px, 11dvh)} }
+  .stage{flex-direction:row;overflow-y:hidden}
+  .panel--left{height:100%;border-bottom:0;border-right:1px solid rgba(10,10,10,.05)}
+  .panel--right{height:100%;padding-bottom:8px}
+  .nav{padding:32px var(--pad-x)}
+  .nav-left{gap:48px}
+  .nav-links{display:flex}
+  .burger{display:none}
+  .menu{display:none}
+}
+@media (min-width:1024px) and (max-height:760px){
+  .lede{font-size:20px}
+  .copy{padding-bottom:32px}
+  .rule-wrap{min-height:40px}
+}
+@media (prefers-reduced-motion: reduce){
+  .menu, .menu-links a{transition:none !important}
+}
+</style>
+</head>
+<body style="background:#FFFFFF;color:#0A0A0A">
+<div class="hero">
+  <h1 class="sr-only">NUVRA Crypto</h1>
+
+  <video class="bg-video" muted loop playsinline preload="auto" aria-hidden="true"
+         src="https://media.kolpusites.com/nuvra/cripto_compressed.mp4"></video>
+
+  <div class="stage">
+    <section class="panel panel--left">
+      <div class="glass" aria-hidden="true"></div>
+      <div class="panel-inner">
+        <div class="spacer"></div>
+        <div class="rule-wrap"><div class="rule"></div></div>
+        <div class="copy">
+          <div class="eyebrow">The Platform</div>
+          <p class="lede">We make digital assets simple to buy, hold and grow, with deep liquidity and security built into every layer.<br>One account turns market noise into clear, confident moves.</p>
+          <div class="meta-row">
+            <div class="cta-block">
+              <span class="label">Open an account and</span>
+              <a href="#" class="cta">Start Trading
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+              </a>
+            </div>
+            <div class="socials">
+              <a href="#">X</a>
+              <a href="#">Telegram</a>
+            </div>
+            <div class="availability">Global access, 24/7 support<br>Web, iOS and Android</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel panel--right">
+      <div class="orbits" aria-hidden="true">
+        <div class="orbits-box">
+          <div class="orbit orbit--1"></div>
+          <div class="orbit orbit--2"></div>
+        </div>
+      </div>
+      <div class="wordmark">
+        <svg viewBox="0 0 1000 200" width="100%" role="img" aria-label="Crypto">
+          <text x="0" y="197" textLength="1000" lengthAdjust="spacingAndGlyphs">CRYPTO</text>
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-left">
+      <a href="#" class="logo" aria-label="NUVRA.fi home">
+        <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="logo-word">NUVRA.fi</span>
+      </a>
+      <div class="nav-links">
+        <a href="#">Markets</a><a href="#">Trade</a><a href="#">Earn</a><a href="#">Learn</a>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="currency"><span>USD</span><span class="sep" aria-hidden="true">|</span><span>BTC</span></div>
+      <button type="button" class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+      </button>
+      <a href="#" class="btn-start">Get Started</a>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="menu" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true" inert>
+    <div class="menu-head">
+      <span class="logo"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="logo-word">NUVRA.fi</span></span>
+      <button type="button" class="menu-close" aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div class="menu-links">
+      <a href="#" style="--i:0">MARKETS</a><a href="#" style="--i:1">TRADE</a><a href="#" style="--i:2">EARN</a><a href="#" style="--i:3">LEARN</a><a href="#" style="--i:4">GET STARTED</a>
+    </div>
+    <div class="menu-foot">
+      <div class="currency-plain"><span>USD</span><span class="sep" aria-hidden="true">|</span><span>BTC</span></div>
+      <span>Global, 24/7</span>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  'use strict';
+  const VIDEO_SRC = 'https://media.kolpusites.com/nuvra/cripto_compressed.mp4';
+  const PLAYBACK = 0.7;
+
+  const hero = document.querySelector('.hero');
+  const video = document.querySelector('.bg-video');
+  const glass = document.querySelector('.glass');
+  const panelInner = document.querySelector('.panel-inner');
+  const burger = document.querySelector('.burger');
+  const menu = document.getElementById('mobile-menu');
+  const menuClose = document.querySelector('.menu-close');
+  let maskQueued = false;
+  let videoStarted = false;
+
+  /* 10a — canvas-mask knockout of NUVRA */
+  function drawMask(){
+    const el = glass, inner = panelInner;
+    if(!el){ return; }
+    const W = el.clientWidth, H = el.clientHeight;
+    if(!W || !H) return;
+    const cs = getComputedStyle(inner);
+    const padX = parseFloat(cs.paddingLeft), top = parseFloat(cs.paddingTop);
+    const tw = Math.max(0, W - padX*2), s = tw/1000;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const c = document.createElement('canvas');
+    c.width = Math.round(W*dpr); c.height = Math.round(H*dpr);
+    const ctx = c.getContext('2d');
+    ctx.scale(dpr, dpr);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.font = '900 ' + (308*s) + 'px Inter, sans-serif';
+    if('letterSpacing' in ctx) ctx.letterSpacing = (-0.05*308*s) + 'px';
+    ctx.textBaseline = 'alphabetic';
+    const m = ctx.measureText('NUVRA');
+    const left = m.actualBoundingBoxLeft || 0;
+    const glyphW = (m.actualBoundingBoxRight || m.width) + left;
+    ctx.save();
+    ctx.translate(padX, top + 224*s);
+    ctx.scale(glyphW ? tw/glyphW : 1, 1);
+    ctx.fillStyle = '#000';
+    ctx.fillText('NUVRA', left, 0);
+    ctx.restore();
+    const url = 'url(' + c.toDataURL() + ')';
+    el.style.maskImage = url; el.style.webkitMaskImage = url;
+  }
+  function queueMask(){
+    if(maskQueued) return;
+    maskQueued = true;
+    requestAnimationFrame(function(){
+      maskQueued = false;
+      drawMask();
+    });
+  }
+
+  /* 10b — video playback */
+  function initVideo(){
+    if(video.readyState >= 1 && video.videoWidth){
+      video.defaultPlaybackRate = video.playbackRate = PLAYBACK;
+    }
+    video.addEventListener('loadedmetadata', function(){
+      video.defaultPlaybackRate = video.playbackRate = PLAYBACK;
+    });
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+      video.addEventListener('canplay', function(){
+        if(!videoStarted && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+          videoStarted = true;
+          video.play().catch(function(){});
+        }
+      });
+    }
+    video.addEventListener('loadeddata', function(){
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+        video.pause();
+        if(!video.poster) video.currentTime = 0.04;
+      }
+    });
+    matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', function(e){
+      if(e.matches){ video.pause(); video.currentTime = 0.04; }
+      else { video.play().catch(function(){}); }
+    });
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden){ video.pause(); }
+      else {
+        if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+          video.play().catch(function(){});
+        }
+      }
+    });
+  }
+
+  /* 9a — blur-in on first playing */
+  video.addEventListener('playing', function(){
+    if(document.documentElement.classList.contains('anim-media')){
+      video.classList.add('focus');
+    }
+    video.addEventListener('animationend', function(){
+      video.classList.remove('focus');
+      document.documentElement.classList.remove('anim-media');
+    }, { once:true });
+  });
+  setTimeout(function(){
+    if(document.documentElement.classList.contains('anim-media') &&
+       !video.classList.contains('focus')){
+      document.documentElement.classList.remove('anim-media');
+    }
+  }, 6000);
+
+  /* 10c — mobile menu */
+  function setMenu(open){
+    menu.dataset.open = String(open);
+    if(open){
+      menu.removeAttribute('inert');
+      menu.setAttribute('aria-hidden','false');
+      burger.setAttribute('aria-expanded','true');
+      menuClose.focus();
+    } else {
+      menu.setAttribute('inert','');
+      menu.setAttribute('aria-hidden','true');
+      burger.setAttribute('aria-expanded','false');
+      burger.focus();
+    }
+  }
+  function bindMenu(){
+    burger.addEventListener('click', function(){ setMenu(true); });
+    menuClose.addEventListener('click', function(){ setMenu(false); });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ setMenu(false); });
+    });
+    document.addEventListener('keydown', function(e){
+      if(menu.dataset.open !== 'true') return;
+      if(e.key === 'Escape'){ setMenu(false); return; }
+      if(e.key === 'Tab'){
+        const focusables = menu.querySelectorAll('a, button, [href], [tabindex]:not([tabindex="-1"])');
+        if(!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    });
+    matchMedia('(min-width:1024px)').addEventListener('change', function(e){
+      if(e.matches && menu.dataset.open === 'true') setMenu(false);
+    });
+  }
+
+  /* 9b — entrance */
+  function runEntrance(){
+    if(!document.documentElement.classList.contains('anim')) return;
+    const fontsPromise = document.fonts && document.fonts.ready
+      ? Promise.race([document.fonts.ready, new Promise(function(r){ setTimeout(r, 500); })])
+      : Promise.resolve();
+    fontsPromise.then(function(){
+      drawMask();
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          document.documentElement.classList.add('play');
+        });
+      });
+      setTimeout(function(){
+        document.documentElement.classList.remove('anim','play');
+      }, 1800);
+    });
+  }
+
+  /* 10d — init order */
+  initVideo();
+  if(document.fonts && document.fonts.load){
+    document.fonts.load('900 100px Inter')
+      .then(function(){ return document.fonts.ready; })
+      .then(function(){ queueMask(); });
+  }
+  if(window.ResizeObserver){
+    new ResizeObserver(queueMask).observe(glass);
+  }
+  window.addEventListener('resize', queueMask);
+  queueMask();
+  bindMenu();
+  runEntrance();
+})();
+</script>
+</body>
+</html>
