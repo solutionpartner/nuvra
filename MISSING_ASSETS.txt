@@ -1,0 +1,17 @@
+MISSING ASSETS — NUVRA.fi demo (fictional concept site)
+=======================================================
+Imagery is represented in index.html by styled gradient placeholders
+labelled "PLACEHOLDER: image needed — <name>". Replace each with a
+self-hosted artwork before publishing.
+
+1. products terminal UI      — product-feature section (Buy/Sell/Trade/Earn showcase)
+2. security vault / custody  — Security & Trust section visual
+
+Notes
+-----
+- Fonts: Inter (400/500/700/900) — assumed to be self-hosted or system fallback;
+  no external font <link> is added (fully self-contained). Add Google Fonts or
+  the self-hosted Inter @font-face if the canvas NUVRA mask needs the 900 weight
+  outside the browser's system fallback.
+- Hero background uses the existing local cripto_compressed.mp4 (kept unchanged).
+- All icons are inline SVG; no icon font or external asset library required.
